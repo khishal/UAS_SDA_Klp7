@@ -61,3 +61,46 @@ int hapus_baris_terakhir_txt(const char *filename) {
     return 1;
 }
 
+int load_pengeluaran_dari_txt(const char *filename, Pengeluaran arr[], int max) {
+    FILE *fp = fopen(filename, "r");
+    if (!fp) return 0;
+    int n = 0;
+    char buf[256];
+    while (fgets(buf, sizeof(buf), fp) && n < max) {
+        Pengeluaran tmp;
+        char katstr[32];
+        int scanned = sscanf(buf, "ID: %d | Tgl: %11s | Item: %63[^|]| Kat: %31[^|]| Rp %lf",
+            &tmp.id, tmp.tanggal, tmp.nama_item, katstr, &tmp.jumlah);
+
+        char *end;
+        end = tmp.nama_item + strlen(tmp.nama_item) - 1;
+        while(end > tmp.nama_item && (*end==' ')) *end-- = '\0';
+        end = katstr + strlen(katstr) - 1;
+        while(end > katstr && (*end==' ')) *end-- = '\0';
+
+        if (strcmp(katstr, "Sandang")==0) tmp.kategori = KAT_SANDANG;
+        else if (strcmp(katstr, "Pangan")==0) tmp.kategori = KAT_PANGAN;
+        else if (strcmp(katstr, "Transportasi")==0) tmp.kategori = KAT_TRANSPORTASI;
+        else if (strcmp(katstr, "Pendidikan")==0) tmp.kategori = KAT_PENDIDIKAN;
+        else tmp.kategori = KAT_LAINNYA;
+
+        if (scanned >= 5) {
+            arr[n++] = tmp;
+        }
+    }
+    fclose(fp);
+    return n;
+}
+
+void sort_ascending_by_jumlah(Pengeluaran arr[], int n) {
+    for (int i=0; i<n-1; i++) {
+        for (int j=0; j<n-i-1; j++) {
+            if (arr[j].jumlah > arr[j+1].jumlah) {
+                Pengeluaran tmp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = tmp;
+            }
+        }
+    }
+}
+
