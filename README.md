@@ -164,3 +164,86 @@ make clean
 ```
 
 ---
+## 📖 Panduan Penggunaan
+
+Saat program dijalankan, akan muncul menu utama:
+
+```
+------------------------------------------------------------
+   SISTEM ANALISIS PENGELUARAN MAHASISWA
+   Kelompok 7 — Informatika, Universitas Syiah Kuala
+------------------------------------------------------------
+
+  MENU UTAMA
+----------------------------------------
+  [1] Input pengeluaran baru
+  [2] Tampilkan semua data
+  [3] Analisis pengeluaran
+  [4] Cari pengeluaran
+  [5] Urutkan & filter pengeluaran
+  [6] Rekap per kategori
+  [7] Undo transaksi terakhir
+  [8] Lihat riwayat dari file TXT
+  [0] Keluar
+```
+
+### Contoh Input Pengeluaran
+
+```
+--- Input Pengeluaran Baru (ID: 1) ---
+Nama Item            : Nasi Goreng
+Tanggal (DD-MM-YYYY) : 24-05-2025
+Jumlah (Rp)          : 15000
+Kategori terdeteksi  : [Pangan]
+Gunakan kategori ini? [y/n] > y
+[+] Data disimpan  (Kategori: Pangan)
+```
+
+---
+
+## 📄 Format File Data
+
+Data disimpan dalam `riwayat_pengeluaran.txt` dengan format:
+
+```
+ID: 1 | Tgl: 24-05-2025 | Item: Nasi Goreng          | Kat: Pangan        | Rp 15000
+ID: 2 | Tgl: 24-05-2025 | Item: Kaos Polos            | Kat: Sandang       | Rp 85000
+ID: 3 | Tgl: 25-05-2025 | Item: Grab ke Kampus        | Kat: Transportasi  | Rp 12000
+```
+
+> ⚠️ **Catatan:** File ini dibuat otomatis saat pertama kali melakukan input. Jangan mengubah format secara manual agar parsing tetap berfungsi dengan benar.
+
+---
+
+## 🏷️ Kategori Pengeluaran
+
+| Kategori | Kode | Contoh Kata Kunci |
+|----------|------|-------------------|
+| 👕 **Sandang** | `KAT_SANDANG` | baju, kaos, sepatu, tas, jaket, hijab |
+| 🍜 **Pangan** | `KAT_PANGAN` | makan, nasi, kopi, bakso, indomie, warung |
+| 🚗 **Transportasi** | `KAT_TRANSPORTASI` | ojek, grab, bensin, parkir, tol, bus |
+| 📚 **Pendidikan** | `KAT_PENDIDIKAN` | buku, spp, praktikum, kursus, jurnal |
+| 📦 **Lainnya** | `KAT_LAINNYA` | Item yang tidak terdeteksi otomatis |
+
+Kata kunci lengkap tersimpan dalam hash table yang diinisialisasi di `hashtable.c → ht_isi_kamus()`.
+
+---
+
+## 👥 Anggota Kelompok
+
+> *Kelompok 7 — Informatika, Universitas Syiah Kuala*
+```
+1. Fatih Ar Rayyan (250810701100009)
+2. Hermanda saputra (250810701100099)
+3. Muhammad Khishal Ardana (250810701100070)
+4. Raisa Fahira (250810701100093)
+5. Shandy Apriliko Hartianto (250810701100094)
+```
+
+---
+
+<div align="center">
+
+Made with ❤️ for the Algorithms & Data Structures course
+
+</div>
