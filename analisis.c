@@ -41,3 +41,50 @@ void analisis_pengeluaran(const char *filename) {
             nama_kategori(arr[i].kategori));
     }
     cetak_garis(50);
+
+    Kategori kat_maks = arr[idx_maks].kategori;
+    printf("\n  [REKOMENDASI]\n");
+    printf("  Pengeluaran terbesar ada di kategori: %s\n",
+           nama_kategori(kat_maks));
+
+    switch (kat_maks) {
+        case KAT_SANDANG:
+            printf("  Saran: Pertimbangkan menunda pembelian pakaian/aksesori\n"
+                   "         yang tidak mendesak hingga akhir bulan.\n");
+            break;
+        case KAT_PANGAN:
+            printf("  Saran: Coba masak sendiri atau pilih warung yang lebih\n"
+                   "         terjangkau untuk menekan biaya makan harian.\n");
+            break;
+        case KAT_TRANSPORTASI:
+            printf("  Saran: Pertimbangkan transportasi umum atau berbagi\n"
+                   "         kendaraan agar biaya transportasi berkurang.\n");
+            break;
+        case KAT_PENDIDIKAN:
+            printf("  Saran: Cari buku bekas, pinjam dari perpustakaan, atau\n"
+                   "         gunakan e-book untuk menghemat biaya pendidikan.\n");
+            break;
+        default:
+            printf("  Saran: Evaluasi pengeluaran pada kategori ini dan\n"
+                   "         prioritaskan kebutuhan paling mendesak.\n");
+            break;
+    }
+
+    double total_pangan = 0;
+    for (int i = 0; i < jumlah_data; i++)
+        if (arr[i].kategori == KAT_PANGAN)
+            total_pangan += arr[i].jumlah;
+
+    if (total > 0 && (total_pangan / total) > 0.5)
+        printf("\n  [!] Lebih dari 50%% pengeluaran Anda ada di kategori Pangan.\n"
+               "      Pertimbangkan untuk membuat anggaran makan mingguan.\n");
+
+    double total_sandang = 0;
+    for (int i = 0; i < jumlah_data; i++)
+        if (arr[i].kategori == KAT_SANDANG)
+            total_sandang += arr[i].jumlah;
+
+    if (total > 0 && (total_sandang / total) > 0.3)
+        printf("\n  [!] Lebih dari 30%% pengeluaran Anda ada di kategori Sandang.\n"
+               "      Tunda pembelian pakaian yang tidak mendesak.\n");
+}
