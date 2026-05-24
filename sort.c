@@ -94,3 +94,21 @@ void sort_dan_tampilkan(Konteks *ctx, int mode) {
            "ID", "Nama Item", "Tanggal", "Kategori", "Jumlah (Rp)");
 
     cetak_garis(72);
+
+    double total = 0;
+    for (int i = 0; i < n; i++) {
+        printf("  %-4d %-20s %-12s %-14s %12.0f\n",
+               tmp[i].id,
+               tmp[i].nama_item,
+               tmp[i].tanggal,
+               nama_kategori(tmp[i].kategori),
+               tmp[i].jumlah);
+
+        total += tmp[i].jumlah;
+    }
+
+    cetak_garis(72);
+
+    printf("  Total %-50s %12.0f\n", "", total);
+    printf("  Jumlah transaksi: %d\n", n);
+}
