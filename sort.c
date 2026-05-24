@@ -70,3 +70,27 @@ void sort_dan_tampilkan(Konteks *ctx, int mode) {
     }
 
     quicksort(tmp, 0, n - 1);
+
+    const char *label;
+
+    switch (mode) {
+        case 1:
+            label = "SANDANG";
+            break;
+
+        case 2:
+            label = "PANGAN";
+            break;
+
+        default:
+            label = "SEMUA KATEGORI";
+    }
+
+    printf("\n  === Data Pengeluaran [%s] ===\n\n", label);
+
+    cetak_garis(72);
+
+    printf("  %-4s %-20s %-12s %-14s %12s\n",
+           "ID", "Nama Item", "Tanggal", "Kategori", "Jumlah (Rp)");
+
+    cetak_garis(72);
