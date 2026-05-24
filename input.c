@@ -75,5 +75,28 @@ void input_pengeluaran(Konteks *ctx) {
         printf("[!] Gagal menulis ke file TXT.\n");
     }
 
+    void tampilkan_semua(const Konteks *ctx) {
+    if (ctx->jumlah_data == 0) {
+        printf("  (belum ada data)\n");
+        return;
+    }
+
+    cetak_garis(72);
+    printf("  %-4s %-20s %-12s %-14s %12s\n",
+           "ID", "Nama Item", "Tanggal", "Kategori", "Jumlah (Rp)");
+    cetak_garis(72);
+
+    const NodeLL *cur = ctx->list_head;
+    while (cur) {
+        const Pengeluaran *p = &cur->data;
+        printf("  %-4d %-20s %-12s %-14s %12.0f\n",
+               p->id, p->nama_item, p->tanggal,
+               nama_kategori(p->kategori), p->jumlah);
+        cur = cur->next;
+    }
+    cetak_garis(72);
+    printf("  Total data: %d\n", ctx->jumlah_data);
+}
+
     printf("[+] Data disimpan  (Kategori: %s)\n", nama_kategori(p.kategori));
 }
