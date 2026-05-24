@@ -150,5 +150,24 @@ void rekap_per_kategori(const Konteks *ctx) {
 
     printf("  %-16s %8d %16.0f\n",
            "TOTAL",
-           ctx->jumlah_data,
-           grand);
+           ctx->jumlah_data, grand);
+
+    printf("\n  Perbandingan Sandang vs Pangan:\n");
+
+    printf("  Sandang : Rp %10.0f  (%d transaksi)\n",
+           subtotal[KAT_SANDANG],
+           cnt[KAT_SANDANG]);
+
+    printf("  Pangan  : Rp %10.0f  (%d transaksi)\n",
+           subtotal[KAT_PANGAN],
+           cnt[KAT_PANGAN]);
+
+    if (subtotal[KAT_SANDANG] > subtotal[KAT_PANGAN])
+        printf("  [!] Pengeluaran SANDANG lebih besar dari PANGAN.\n");
+
+    else if (subtotal[KAT_PANGAN] > subtotal[KAT_SANDANG])
+        printf("  [!] Pengeluaran PANGAN lebih besar dari SANDANG.\n");
+
+    else
+        printf("  [=] Pengeluaran Sandang dan Pangan seimbang.\n");
+}
