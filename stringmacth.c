@@ -28,3 +28,31 @@ static int kmp_search(const char *text, const char *pattern) {
     }
     return 0;
 }
+
+Kategori deteksi_kategori(const HashTable *ht, const char *nama_item) {
+    
+    char lower[MAX_STR];
+    str_tolower(lower, nama_item, MAX_STR);
+
+    char buf[MAX_STR];
+    strncpy(buf, lower, MAX_STR - 1);
+    buf[MAX_STR - 1] = '\0';
+
+    char *token = strtok(buf, " \t");
+    while (token) {
+        Kategori k = ht_lookup(ht, token);
+        if (k != KAT_LAINNYA) return k;
+        token = strtok(NULL, " \t");
+    }
+
+    for (int i = 0; i < HT_SIZE; i++) {
+        NodeKW *cur = ht->bucket[i];
+        while (cur) {
+            if (kmp_search(lower, cur->keyword))
+                return cur->kategori;
+            cur = cur->next;
+        }
+    }
+
+    return KAT_LAINNYA;
+}
