@@ -75,6 +75,9 @@ void input_pengeluaran(Konteks *ctx) {
         printf("[!] Gagal menulis ke file TXT.\n");
     }
 
+       printf("[+] Data disimpan  (Kategori: %s)\n", nama_kategori(p.kategori));
+}
+
     void tampilkan_semua(const Konteks *ctx) {
     if (ctx->jumlah_data == 0) {
         printf("  (belum ada data)\n");
@@ -96,9 +99,6 @@ void input_pengeluaran(Konteks *ctx) {
     }
     cetak_garis(72);
     printf("  Total data: %d\n", ctx->jumlah_data);
-}
-
-    printf("[+] Data disimpan  (Kategori: %s)\n", nama_kategori(p.kategori));
 }
 
 void lihat_file_txt(void) {
