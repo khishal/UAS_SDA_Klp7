@@ -46,3 +46,53 @@ Kategori ht_lookup(const HashTable *ht, const char *keyword) {
     }
     return KAT_LAINNYA;
 }
+
+void ht_free(HashTable *ht) {
+    for (int i = 0; i < HT_SIZE; i++) {
+        NodeKW *cur = ht->bucket[i];
+        while (cur) {
+            NodeKW *tmp = cur->next;
+            free(cur);
+            cur = tmp;
+        }
+        ht->bucket[i] = NULL;
+    }
+}
+
+void ht_isi_kamus(HashTable *ht) {
+    const char *sandang[] = {
+        "baju","kaos","kemeja","celana","rok","jaket","sweater",
+        "sepatu","sandal","tas","dompet","ikat pinggang","topi","syal",
+        "pakaian","bra","kaos kaki","sarung tangan","piyama","jas",
+        "hoodie","shirt","dress","blouse","hijab","jilbab","kain",
+        NULL
+    };
+    for (int i = 0; sandang[i]; i++) ht_insert(ht, sandang[i], KAT_SANDANG);
+
+    const char *pangan[] = {
+        "makan","minum","nasi","ayam","ikan","sayur","buah","roti",
+        "kopi","teh","jus","susu","snack","cemilan","bakso","mie",
+        "soto","gado","pizza","burger","indomie","beras","telur",
+        "tempe","tahu","lauk","es","minuman","makanan","warung",
+        "restoran","kantin","cafe","kafe","gorengan","kerupuk",
+        NULL
+    };
+    for (int i = 0; pangan[i]; i++) ht_insert(ht, pangan[i], KAT_PANGAN);
+
+    const char *trans[] = {
+        "ojek","gojek","grab","taxi","bensin","bbm","bus","angkot",
+        "kereta","tiket","parkir","tol","motor","mobil","bensin",
+        "solar","pertamax","pertalite","transjakarta","busway",
+        NULL
+    };
+    for (int i = 0; trans[i]; i++) ht_insert(ht, trans[i], KAT_TRANSPORTASI);
+
+    const char *didik[] = {
+        "buku","modul","fotokopi","print","alat tulis","pulpen","pensil",
+        "kertas","tinta","kalkulator","tas sekolah","uang kuliah","spp",
+        "praktikum","laboratorium","kursus","les","bimbel","referensi",
+        "diktat","jurnal","makalah","skripsi","riset","seminar",
+        NULL
+    };
+    for (int i = 0; didik[i]; i++) ht_insert(ht, didik[i], KAT_PENDIDIKAN);
+}
