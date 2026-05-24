@@ -100,3 +100,20 @@ void input_pengeluaran(Konteks *ctx) {
 
     printf("[+] Data disimpan  (Kategori: %s)\n", nama_kategori(p.kategori));
 }
+
+void lihat_file_txt(void) {
+    FILE *fp = fopen("riwayat_pengeluaran.txt", "r");
+    if (!fp) {
+        printf("  [!] File TXT belum ada. Input data dulu ngab!\n");
+        return;
+    }
+    
+    printf("\n  === Isi File riwayat_pengeluaran.txt ===\n");
+    cetak_garis(72);
+    char buffer[256];
+    while (fgets(buffer, sizeof(buffer), fp)) {
+        printf("  %s", buffer);
+    }
+    cetak_garis(72);
+    fclose(fp);
+}
