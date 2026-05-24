@@ -112,3 +112,43 @@ void sort_dan_tampilkan(Konteks *ctx, int mode) {
     printf("  Total %-50s %12.0f\n", "", total);
     printf("  Jumlah transaksi: %d\n", n);
 }
+void rekap_per_kategori(const Konteks *ctx) {
+    double subtotal[KAT_TOTAL] = {0};
+    int cnt[KAT_TOTAL] = {0};
+
+    for (int i = 0; i < ctx->jumlah_data; i++) {
+        Kategori k = ctx->array[i].kategori;
+        subtotal[k] += ctx->array[i].jumlah;
+        cnt[k]++;
+    }
+
+    printf("\n  === Rekap Pengeluaran per Kategori ===\n\n");
+
+    cetak_garis(50);
+
+    printf("  %-16s %8s %16s\n",
+           "Kategori",
+           "Transaksi",
+           "Total (Rp)");
+
+    cetak_garis(50);
+
+    double grand = 0;
+
+    for (int k = 0; k < KAT_TOTAL; k++) {
+        if (cnt[k] > 0) {
+            printf("  %-16s %8d %16.0f\n",
+                   nama_kategori((Kategori)k),
+                   cnt[k],
+                   subtotal[k]);
+
+            grand += subtotal[k];
+        }
+    }
+
+    cetak_garis(50);
+
+    printf("  %-16s %8d %16.0f\n",
+           "TOTAL",
+           ctx->jumlah_data,
+           grand);
