@@ -81,3 +81,86 @@ expense-tracker/
 
 ```
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   Linked List   │    │     Stack       │    │   Hash Table    │
+│                 │    │                 │    │  (DJB2, HT=64)  │
+│ Riwayat sesi   │    │  Undo transaksi │    │  Kamus kategori │
+│ pengeluaran    │    │  (LIFO)         │    │  kata kunci     │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+```
+
+### Algoritma yang Diimplementasikan
+
+| Algoritma | File | Kegunaan | Kompleksitas |
+|-----------|------|----------|--------------|
+| **KMP (Knuth-Morris-Pratt)** | `stringmatch.c` | Deteksi kategori dari nama item | O(n + m) |
+| **Quicksort** | `sort.c` | Mengurutkan pengeluaran descending | O(n log n) avg |
+| **Binary Search** | `search.c` | Mencari pengeluaran berdasarkan nominal | O(log n) |
+| **Bubble Sort** | `utils.c` | Pengurutan ascending untuk analisis | O(n²) |
+| **Hash DJB2** | `hashtable.c` | Hashing kata kunci kategori | O(1) avg |
+
+### Alur Deteksi Kategori
+
+```
+Input nama item
+      │
+      ▼
+  str_tolower()
+      │
+      ▼
+ Tokenisasi per kata
+      │
+      ▼
+ ht_lookup() ──── Cocok? ──► Return kategori
+      │ Tidak
+      ▼
+ KMP Search (substring)
+      │
+      ▼
+ Cocok? ──► Return kategori
+      │ Tidak
+      ▼
+ Return KAT_LAINNYA
+```
+
+---
+
+## 🔧 Cara Build & Menjalankan
+
+### Prasyarat
+
+- GCC (GNU Compiler Collection)
+- GNU Make
+- Terminal Linux / WSL / MinGW (Windows)
+
+### Build
+
+```bash
+# Clone atau download project
+cd expense-tracker/
+
+# Build menggunakan Makefile
+make
+
+# Atau compile manual
+gcc -Wall -Wextra -o expense main.c input.c analisis.c search.c sort.c \
+    stringmatch.c hashtable.c linkedlist.c stack.c utils.c
+```
+
+### RUN
+
+```bash
+# Windows
+mingw32-make
+
+#linux
+make
+
+```
+
+### Bersihkan Build
+
+```bash
+make clean
+```
+
+---
